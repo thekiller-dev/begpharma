@@ -33,6 +33,7 @@ export const fr = {
     code: "Code à 6 chiffres",
     verifier: "Vérifier",
     active: "Double authentification active.",
+    confirmerDesc: "Saisissez un code à 6 chiffres pour confirmer votre identité.",
     saisirCode: "Saisissez le code de votre application d'authentification.",
   },
   nav: {

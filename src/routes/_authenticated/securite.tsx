@@ -198,6 +198,30 @@ function PageSecurite() {
                 </Button>
               </div>
             </>
+          ) : etat?.facteurVerifie ? (
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="code-mfa">{fr.mfa.code}</Label>
+                <Input
+                  id="code-mfa"
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  maxLength={6}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+                  placeholder="123456"
+                  className="max-w-48 text-center text-lg tracking-[0.4em]"
+                />
+              </div>
+              <Button
+                onClick={verifier}
+                disabled={enCours || code.length !== 6}
+                className="h-11 w-fit"
+              >
+                {enCours ? <Loader2 className="size-4 animate-spin" /> : null}
+                {fr.mfa.verifier}
+              </Button>
+            </div>
           ) : (
             <Button onClick={demarrer} disabled={enCours} className="h-11 w-fit">
               {enCours ? <Loader2 className="size-4 animate-spin" /> : null}
