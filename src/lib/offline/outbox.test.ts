@@ -10,7 +10,7 @@ describe("File hors-ligne (E0-S7)", () => {
     let enLigne = false;
     ob.enregistrerHandler("pointage", async (op: Operation) => {
       if (!enLigne) throw new Error("réseau");
-      ordre.push(op.payload.n as number);
+      ordre.push(op.payload["n"] as number);
       if (serveur.has(op.client_op_id)) return "doublon";
       serveur.add(op.client_op_id);
       return "ok";
