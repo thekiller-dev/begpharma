@@ -198,7 +198,7 @@ function DialogEdition({
 }: {
   parametre: Parametre;
   onFermer: () => void;
-  onEnregistrer: (p: Parametre, valeur: unknown) => Promise<void>;
+  onEnregistrer: (p: Parametre, valeur: Json) => Promise<void>;
 }) {
   const [enCours, setEnCours] = useState(false);
   const booleen = parametre.type === "booleen";
@@ -210,7 +210,7 @@ function DialogEdition({
 
   async function valider() {
     setEnCours(true);
-    let valeur: unknown = texte.trim();
+    let valeur: Json = texte.trim();
     if (booleen) valeur = coche;
     else if (numerique) valeur = Number(texte.replace(",", "."));
     await onEnregistrer(parametre, valeur);

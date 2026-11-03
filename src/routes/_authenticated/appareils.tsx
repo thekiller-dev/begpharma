@@ -46,7 +46,8 @@ const fmtDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyl
 function PageAppareils() {
   const queryClient = useQC();
   const router = useRouter();
-  const { userId } = Route.useRouteContext() as unknown as { userId: string };
+  const { user } = Route.useRouteContext() as unknown as { user: { id: string } };
+  const userId = user.id;
   const [courant, setCourant] = useState<string | null>(null);
 
   useEffect(() => setCourant(appareilCourant()), []);
@@ -103,7 +104,7 @@ function PageAppareils() {
           <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
             {fr.appareils.titre}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">{fr.mfa.active}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{fr.appareils.sousTitre}</p>
         </div>
         {actifs.length > 1 ? (
           <Button variant="outline" onClick={revoquerAutres}>

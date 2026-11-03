@@ -47,6 +47,20 @@ function Accueil() {
   const { user } = Route.useRouteContext();
   const [creationOuverte, setCreationOuverte] = useState(false);
 
+  const { data: mfaEtat } = useQuery({
+    queryKey: ["securite", user.id],
+    queryFn: async () => {
+      const [{ data: bruts }, niveau] = await Promise.all([
+        supabase.from("utilisateurs_officines").select("id").eq("user_id", user.id).eq("archived", false),
+        supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
+      ]);
+      return {
+        masquees: (bruts ?? []).length - (rattachements?.length ?? 0),
+        eleve: (niveau.data?.currentLevel ?? "aal1") === "aal2",
+      };
+    },
+  });
+
   const { data: profil } = useQuery({
     queryKey: ["profil", user.id],
     queryFn: async () => {
@@ -80,11 +94,25 @@ function Accueil() {
         <p className="mt-1 text-sm text-muted-foreground">{fr.tableau.socle}</p>
       </div>
 
+      {mfaEtat && mfaEtat.masquees > 0 && !mfaEtat.eleve ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{fr.mfa.titre}</CardTitle>
+            <CardDescription>{fr.mfa.obligatoire}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild className="h-11">
+              <Link to="/securite">{fr.nav.securite}</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
       {rattachements.length === 0 ? (
         <Card>
           <CardHeader>
             <CardTitle>{fr.officine.aucune}</CardTitle>
-            <CardDescription>{fr.mfa.obligatoire}</CardDescription>
+            <CardDescription>{fr.officine.aucuneDesc}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-2 sm:grid-cols-2">
             <Button onClick={() => setCreationOuverte(true)} className="h-11">
@@ -211,7 +239,7 @@ function DialogCreation({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{fr.officine.creer}</DialogTitle>
-          <DialogDescription>{fr.officine.creee}</DialogDescription>
+          <DialogDescription>{fr.officine.creerDesc}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-2">
           <div className="grid gap-2">

@@ -139,6 +139,9 @@ function Coquille({ userId, email }: { userId: string; email: string }) {
                 <DropdownMenuItem onSelect={() => router.navigate({ to: "/parametres" })}>
                   {fr.nav.parametres}
                 </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.navigate({ to: "/securite" })}>
+                  {fr.nav.securite}
+                </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => router.navigate({ to: "/journal" })}>
                   {fr.nav.journal}
                 </DropdownMenuItem>

@@ -12,7 +12,7 @@ import { oublierAppareil } from "@/lib/appareil";
  */
 export async function deconnecter(
   queryClient: QueryClient,
-  router: Router,
+  router: AnyRouter,
   options: { verrouille?: boolean } = {},
 ) {
   await queryClient.cancelQueries();

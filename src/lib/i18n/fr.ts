@@ -33,6 +33,7 @@ export const fr = {
     code: "Code à 6 chiffres",
     verifier: "Vérifier",
     active: "Double authentification active.",
+    confirmerDesc: "Saisissez un code à 6 chiffres pour confirmer votre identité.",
     saisirCode: "Saisissez le code de votre application d'authentification.",
   },
   nav: {
@@ -45,7 +46,9 @@ export const fr = {
   officine: {
     selecteur: "Officine",
     aucune: "Vous n'êtes rattaché à aucune officine.",
+    aucuneDesc: "Créez votre officine pour commencer, ou demandez à son promoteur de vous y rattacher.",
     creer: "Créer une officine",
+    creerDesc: "Renseignez le nom de votre officine ; vous en deviendrez le promoteur.",
     nom: "Nom de l'officine",
     ville: "Ville",
     creee: "Officine créée. Vous en êtes le promoteur.",
@@ -74,6 +77,7 @@ export const fr = {
   },
   appareils: {
     titre: "Appareils connectés",
+    sousTitre: "Appareils ayant accédé à votre compte. Déconnectez ceux que vous ne reconnaissez pas.",
     actuel: "Cet appareil",
     revoquer: "Déconnecter",
     toutRevoquer: "Déconnecter tous les autres appareils",
