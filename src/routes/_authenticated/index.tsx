@@ -42,6 +42,8 @@ export const Route = createFileRoute("/_authenticated/")({
   component: Accueil,
 });
 
+import { TableauDeBord } from "@/components/tableau-de-bord";
+
 function Accueil() {
   const { rattachements, courante, choisir, chargement } = useOfficine();
   const { user } = Route.useRouteContext();
@@ -84,6 +86,7 @@ function Accueil() {
     );
   }
 
+  const masquees = (mfaEtat?.total ?? 0) - rattachements.length;
   return (
     <div className="grid gap-6">
       <div>
@@ -94,7 +97,6 @@ function Accueil() {
         <p className="mt-1 text-sm text-muted-foreground">{fr.tableau.socle}</p>
       </div>
 
-      const masquees = (mfaEtat?.total ?? 0) - rattachements.length;
       {mfaEtat && masquees > 0 && !mfaEtat.eleve ? (
         <Card>
           <CardHeader>
@@ -155,28 +157,7 @@ function Accueil() {
             </section>
           ) : null}
 
-          {courante ? (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex flex-wrap items-center gap-2">
-                  {courante.officine.nom}
-                  <Badge variant="secondary">{fr.roles[courante.role]}</Badge>
-                </CardTitle>
-                <CardDescription>{courante.officine.ville ?? "—"}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-wrap gap-2">
-                <Button asChild className="h-11">
-                  <Link to="/parametres">{fr.nav.parametres}</Link>
-                </Button>
-                <Button asChild variant="outline" className="h-11">
-                  <Link to="/journal">{fr.nav.journal}</Link>
-                </Button>
-                <Button asChild variant="outline" className="h-11">
-                  <Link to="/appareils">{fr.nav.appareils}</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ) : null}
+          {courante ? <TableauDeBord /> : null}
 
           <Button
             variant="ghost"

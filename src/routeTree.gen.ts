@@ -13,8 +13,14 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedAppareilsRouteImport } from './routes/_authenticated/appareils'
+import { Route as AuthenticatedDocumentsRouteImport } from './routes/_authenticated/documents'
+import { Route as AuthenticatedEcheancesRouteImport } from './routes/_authenticated/echeances'
 import { Route as AuthenticatedJournalRouteImport } from './routes/_authenticated/journal'
+import { Route as AuthenticatedModelesRouteImport } from './routes/_authenticated/modeles'
+import { Route as AuthenticatedNonConformitesRouteImport } from './routes/_authenticated/non-conformites'
 import { Route as AuthenticatedParametresRouteImport } from './routes/_authenticated/parametres'
+import { Route as AuthenticatedPersonnelRouteImport } from './routes/_authenticated/personnel'
+import { Route as AuthenticatedPointageRouteImport } from './routes/_authenticated/pointage'
 import { Route as AuthenticatedSecuriteRouteImport } from './routes/_authenticated/securite'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -36,14 +42,45 @@ const AuthenticatedAppareilsRoute = AuthenticatedAppareilsRouteImport.update({
   path: '/appareils',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDocumentsRoute = AuthenticatedDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEcheancesRoute = AuthenticatedEcheancesRouteImport.update({
+  id: '/echeances',
+  path: '/echeances',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedJournalRoute = AuthenticatedJournalRouteImport.update({
   id: '/journal',
   path: '/journal',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedModelesRoute = AuthenticatedModelesRouteImport.update({
+  id: '/modeles',
+  path: '/modeles',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNonConformitesRoute =
+  AuthenticatedNonConformitesRouteImport.update({
+    id: '/non-conformites',
+    path: '/non-conformites',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedParametresRoute = AuthenticatedParametresRouteImport.update({
   id: '/parametres',
   path: '/parametres',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPersonnelRoute = AuthenticatedPersonnelRouteImport.update({
+  id: '/personnel',
+  path: '/personnel',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPointageRoute = AuthenticatedPointageRouteImport.update({
+  id: '/pointage',
+  path: '/pointage',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSecuriteRoute = AuthenticatedSecuriteRouteImport.update({
@@ -56,15 +93,27 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/auth': typeof AuthRoute
   '/appareils': typeof AuthenticatedAppareilsRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
+  '/echeances': typeof AuthenticatedEcheancesRoute
   '/journal': typeof AuthenticatedJournalRoute
+  '/modeles': typeof AuthenticatedModelesRoute
+  '/non-conformites': typeof AuthenticatedNonConformitesRoute
   '/parametres': typeof AuthenticatedParametresRoute
+  '/personnel': typeof AuthenticatedPersonnelRoute
+  '/pointage': typeof AuthenticatedPointageRoute
   '/securite': typeof AuthenticatedSecuriteRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/appareils': typeof AuthenticatedAppareilsRoute
+  '/documents': typeof AuthenticatedDocumentsRoute
+  '/echeances': typeof AuthenticatedEcheancesRoute
   '/journal': typeof AuthenticatedJournalRoute
+  '/modeles': typeof AuthenticatedModelesRoute
+  '/non-conformites': typeof AuthenticatedNonConformitesRoute
   '/parametres': typeof AuthenticatedParametresRoute
+  '/personnel': typeof AuthenticatedPersonnelRoute
+  '/pointage': typeof AuthenticatedPointageRoute
   '/securite': typeof AuthenticatedSecuriteRoute
   '/': typeof AuthenticatedIndexRoute
 }
@@ -73,24 +122,59 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/appareils': typeof AuthenticatedAppareilsRoute
+  '/_authenticated/documents': typeof AuthenticatedDocumentsRoute
+  '/_authenticated/echeances': typeof AuthenticatedEcheancesRoute
   '/_authenticated/journal': typeof AuthenticatedJournalRoute
+  '/_authenticated/modeles': typeof AuthenticatedModelesRoute
+  '/_authenticated/non-conformites': typeof AuthenticatedNonConformitesRoute
   '/_authenticated/parametres': typeof AuthenticatedParametresRoute
+  '/_authenticated/personnel': typeof AuthenticatedPersonnelRoute
+  '/_authenticated/pointage': typeof AuthenticatedPointageRoute
   '/_authenticated/securite': typeof AuthenticatedSecuriteRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/appareils' | '/journal' | '/parametres' | '/securite'
+    | '/'
+    | '/auth'
+    | '/appareils'
+    | '/documents'
+    | '/echeances'
+    | '/journal'
+    | '/modeles'
+    | '/non-conformites'
+    | '/parametres'
+    | '/personnel'
+    | '/pointage'
+    | '/securite'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/appareils' | '/journal' | '/parametres' | '/securite' | '/'
+  to:
+    | '/auth'
+    | '/appareils'
+    | '/documents'
+    | '/echeances'
+    | '/journal'
+    | '/modeles'
+    | '/non-conformites'
+    | '/parametres'
+    | '/personnel'
+    | '/pointage'
+    | '/securite'
+    | '/'
   id:
     | '__root__'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/appareils'
+    | '/_authenticated/documents'
+    | '/_authenticated/echeances'
     | '/_authenticated/journal'
+    | '/_authenticated/modeles'
+    | '/_authenticated/non-conformites'
     | '/_authenticated/parametres'
+    | '/_authenticated/personnel'
+    | '/_authenticated/pointage'
     | '/_authenticated/securite'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
@@ -130,6 +214,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppareilsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/documents': {
+      id: '/_authenticated/documents'
+      path: '/documents'
+      fullPath: '/documents'
+      preLoaderRoute: typeof AuthenticatedDocumentsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/echeances': {
+      id: '/_authenticated/echeances'
+      path: '/echeances'
+      fullPath: '/echeances'
+      preLoaderRoute: typeof AuthenticatedEcheancesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/journal': {
       id: '/_authenticated/journal'
       path: '/journal'
@@ -137,11 +235,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedJournalRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/modeles': {
+      id: '/_authenticated/modeles'
+      path: '/modeles'
+      fullPath: '/modeles'
+      preLoaderRoute: typeof AuthenticatedModelesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/non-conformites': {
+      id: '/_authenticated/non-conformites'
+      path: '/non-conformites'
+      fullPath: '/non-conformites'
+      preLoaderRoute: typeof AuthenticatedNonConformitesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/parametres': {
       id: '/_authenticated/parametres'
       path: '/parametres'
       fullPath: '/parametres'
       preLoaderRoute: typeof AuthenticatedParametresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/personnel': {
+      id: '/_authenticated/personnel'
+      path: '/personnel'
+      fullPath: '/personnel'
+      preLoaderRoute: typeof AuthenticatedPersonnelRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/pointage': {
+      id: '/_authenticated/pointage'
+      path: '/pointage'
+      fullPath: '/pointage'
+      preLoaderRoute: typeof AuthenticatedPointageRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/securite': {
@@ -156,16 +282,28 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppareilsRoute: typeof AuthenticatedAppareilsRoute
+  AuthenticatedDocumentsRoute: typeof AuthenticatedDocumentsRoute
+  AuthenticatedEcheancesRoute: typeof AuthenticatedEcheancesRoute
   AuthenticatedJournalRoute: typeof AuthenticatedJournalRoute
+  AuthenticatedModelesRoute: typeof AuthenticatedModelesRoute
+  AuthenticatedNonConformitesRoute: typeof AuthenticatedNonConformitesRoute
   AuthenticatedParametresRoute: typeof AuthenticatedParametresRoute
+  AuthenticatedPersonnelRoute: typeof AuthenticatedPersonnelRoute
+  AuthenticatedPointageRoute: typeof AuthenticatedPointageRoute
   AuthenticatedSecuriteRoute: typeof AuthenticatedSecuriteRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppareilsRoute: AuthenticatedAppareilsRoute,
+  AuthenticatedDocumentsRoute: AuthenticatedDocumentsRoute,
+  AuthenticatedEcheancesRoute: AuthenticatedEcheancesRoute,
   AuthenticatedJournalRoute: AuthenticatedJournalRoute,
+  AuthenticatedModelesRoute: AuthenticatedModelesRoute,
+  AuthenticatedNonConformitesRoute: AuthenticatedNonConformitesRoute,
   AuthenticatedParametresRoute: AuthenticatedParametresRoute,
+  AuthenticatedPersonnelRoute: AuthenticatedPersonnelRoute,
+  AuthenticatedPointageRoute: AuthenticatedPointageRoute,
   AuthenticatedSecuriteRoute: AuthenticatedSecuriteRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
