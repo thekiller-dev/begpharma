@@ -14,6 +14,165 @@ export type Database = {
   }
   public: {
     Tables: {
+      documents: {
+        Row: {
+          archived: boolean
+          categorie: string
+          contenu: string
+          created_at: string
+          created_by: string | null
+          id: string
+          modele: boolean
+          officine_id: string
+          statut: string
+          titre: string
+          updated_at: string
+          valide_le: string | null
+          valide_par: string | null
+          version: number
+        }
+        Insert: {
+          archived?: boolean
+          categorie?: string
+          contenu?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          modele?: boolean
+          officine_id: string
+          statut?: string
+          titre: string
+          updated_at?: string
+          valide_le?: string | null
+          valide_par?: string | null
+          version?: number
+        }
+        Update: {
+          archived?: boolean
+          categorie?: string
+          contenu?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          modele?: boolean
+          officine_id?: string
+          statut?: string
+          titre?: string
+          updated_at?: string
+          valide_le?: string | null
+          valide_par?: string | null
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      echeances: {
+        Row: {
+          archived: boolean
+          categorie: string
+          created_at: string
+          created_by: string | null
+          date_echeance: string
+          fait: boolean
+          id: string
+          notes: string
+          officine_id: string
+          titre: string
+          updated_at: string
+        }
+        Insert: {
+          archived?: boolean
+          categorie?: string
+          created_at?: string
+          created_by?: string | null
+          date_echeance: string
+          fait?: boolean
+          id?: string
+          notes?: string
+          officine_id: string
+          titre: string
+          updated_at?: string
+        }
+        Update: {
+          archived?: boolean
+          categorie?: string
+          created_at?: string
+          created_by?: string | null
+          date_echeance?: string
+          fait?: boolean
+          id?: string
+          notes?: string
+          officine_id?: string
+          titre?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "echeances_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employes: {
+        Row: {
+          actif: boolean
+          archived: boolean
+          created_at: string
+          created_by: string | null
+          date_embauche: string | null
+          id: string
+          nom_complet: string
+          officine_id: string
+          poste: Database["public"]["Enums"]["role_officine"]
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          date_embauche?: string | null
+          id?: string
+          nom_complet: string
+          officine_id: string
+          poste?: Database["public"]["Enums"]["role_officine"]
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          date_embauche?: string | null
+          id?: string
+          nom_complet?: string
+          officine_id?: string
+          poste?: Database["public"]["Enums"]["role_officine"]
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employes_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       journal_audit: {
         Row: {
           action: string
@@ -52,6 +211,59 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      non_conformites: {
+        Row: {
+          action_corrective: string
+          archived: boolean
+          created_at: string
+          created_by: string | null
+          date_limite: string | null
+          description: string
+          gravite: string
+          id: string
+          officine_id: string
+          statut: string
+          titre: string
+          updated_at: string
+        }
+        Insert: {
+          action_corrective?: string
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          date_limite?: string | null
+          description?: string
+          gravite?: string
+          id?: string
+          officine_id: string
+          statut?: string
+          titre: string
+          updated_at?: string
+        }
+        Update: {
+          action_corrective?: string
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          date_limite?: string | null
+          description?: string
+          gravite?: string
+          id?: string
+          officine_id?: string
+          statut?: string
+          titre?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "non_conformites_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       officines: {
         Row: {
@@ -129,6 +341,51 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "parametres_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pointages: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          employe_id: string
+          horodatage: string
+          id: string
+          officine_id: string
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          employe_id: string
+          horodatage?: string
+          id?: string
+          officine_id: string
+          type: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          employe_id?: string
+          horodatage?: string
+          id?: string
+          officine_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pointages_employe_id_fkey"
+            columns: ["employe_id"]
+            isOneToOne: false
+            referencedRelation: "employes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pointages_officine_id_fkey"
             columns: ["officine_id"]
             isOneToOne: false
             referencedRelation: "officines"
