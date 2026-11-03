@@ -133,11 +133,7 @@ function PageSecurite() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {etat?.actif || (etat?.actif && enrollement)
-              ? fr.mfa.titre
-              : enrollement
-                ? fr.mfa.titre
-                : fr.mfa.titre}
+            {enrollement ? fr.mfa.titre : etat?.actif ? fr.mfa.active : fr.mfa.titre}
           </CardTitle>
           <CardDescription>
             {etat?.actif
