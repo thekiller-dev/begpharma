@@ -47,6 +47,18 @@ function Accueil() {
   const { user } = Route.useRouteContext();
   const [creationOuverte, setCreationOuverte] = useState(false);
 
+  const { data: mfaEtat } = useQuery({
+    queryKey: ["securite", user.id],
+    queryFn: async () => {
+      const [{ data: bruts }, { data: factors }] = await Promise.all([
+        supabase.from("utilisateurs_officines").select("id").eq("user_id", user.id).eq("archived", false),
+        supabase.auth.mfa.listFactors(),
+      ]);
+      const actif = (factors?.all ?? []).some((f) => f.status === "verified");
+      return { masquees: (bruts ?? []).length - (rattachements?.length ?? 0), actif };
+    },
+  });
+
   const { data: profil } = useQuery({
     queryKey: ["profil", user.id],
     queryFn: async () => {
