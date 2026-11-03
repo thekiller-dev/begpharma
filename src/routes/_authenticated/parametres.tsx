@@ -198,7 +198,7 @@ function DialogEdition({
 }: {
   parametre: Parametre;
   onFermer: () => void;
-  onEnregistrer: (p: Parametre, valeur: unknown) => Promise<void>;
+  onEnregistrer: (p: Parametre, valeur: Json) => Promise<void>;
 }) {
   const [enCours, setEnCours] = useState(false);
   const booleen = parametre.type === "booleen";
