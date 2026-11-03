@@ -50,12 +50,14 @@ function Accueil() {
   const { data: mfaEtat } = useQuery({
     queryKey: ["securite", user.id],
     queryFn: async () => {
-      const [{ data: bruts }, { data: factors }] = await Promise.all([
+      const [{ data: bruts }, niveau] = await Promise.all([
         supabase.from("utilisateurs_officines").select("id").eq("user_id", user.id).eq("archived", false),
-        supabase.auth.mfa.listFactors(),
+        supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
       ]);
-      const actif = (factors?.all ?? []).some((f) => f.status === "verified");
-      return { masquees: (bruts ?? []).length - (rattachements?.length ?? 0), actif };
+      return {
+        masquees: (bruts ?? []).length - (rattachements?.length ?? 0),
+        eleve: (niveau.data?.currentLevel ?? "aal1") === "aal2",
+      };
     },
   });
 
@@ -92,7 +94,7 @@ function Accueil() {
         <p className="mt-1 text-sm text-muted-foreground">{fr.tableau.socle}</p>
       </div>
 
-      {mfaEtat && mfaEtat.masquees > 0 && !mfaEtat.actif ? (
+      {mfaEtat && mfaEtat.masquees > 0 && !mfaEtat.eleve ? (
         <Card>
           <CardHeader>
             <CardTitle>{fr.mfa.titre}</CardTitle>
