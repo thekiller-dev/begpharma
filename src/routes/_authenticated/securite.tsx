@@ -51,13 +51,15 @@ function PageSecurite() {
   const { data: etat, isLoading } = useQuery({
     queryKey: ["securite", user.id],
     queryFn: async () => {
-      const [{ data: factors }, { data: requise }] = await Promise.all([
+      const [{ data: factors }, { data: requise }, niveau] = await Promise.all([
         supabase.auth.mfa.listFactors(),
         supabase.rpc("mfa_requise"),
+        supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
       ]);
       if (requise === null) throw new Error("Statut indisponible");
       return {
-        actif: (factors?.all ?? []).some((f) => f.status === "verified"),
+        facteurVerifie: (factors?.all ?? []).find((f) => f.status === "verified")?.id ?? null,
+        aal2: (niveau.data?.currentLevel ?? "aal1") === "aal2",
         requise: !!requise,
       };
     },
