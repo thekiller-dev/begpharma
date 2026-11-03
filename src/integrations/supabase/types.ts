@@ -14,16 +14,263 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      journal_audit: {
+        Row: {
+          action: string
+          ancienne_valeur: Json | null
+          appareil: string | null
+          created_at: string
+          id: number
+          ligne_id: string | null
+          nouvelle_valeur: Json | null
+          officine_id: string | null
+          table_nom: string
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          ancienne_valeur?: Json | null
+          appareil?: string | null
+          created_at?: string
+          id?: never
+          ligne_id?: string | null
+          nouvelle_valeur?: Json | null
+          officine_id?: string | null
+          table_nom: string
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          ancienne_valeur?: Json | null
+          appareil?: string | null
+          created_at?: string
+          id?: never
+          ligne_id?: string | null
+          nouvelle_valeur?: Json | null
+          officine_id?: string | null
+          table_nom?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      officines: {
+        Row: {
+          archived: boolean
+          created_at: string
+          created_by: string | null
+          id: string
+          nom: string
+          updated_at: string
+          ville: string | null
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          nom: string
+          updated_at?: string
+          ville?: string | null
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          nom?: string
+          updated_at?: string
+          ville?: string | null
+        }
+        Relationships: []
+      }
+      parametres: {
+        Row: {
+          archived: boolean
+          cle: string
+          created_at: string
+          created_by: string | null
+          id: string
+          libelle: string
+          officine_id: string
+          type: string
+          unite: string | null
+          updated_at: string
+          valeur: Json
+          version: number
+        }
+        Insert: {
+          archived?: boolean
+          cle: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          libelle: string
+          officine_id: string
+          type: string
+          unite?: string | null
+          updated_at?: string
+          valeur: Json
+          version?: number
+        }
+        Update: {
+          archived?: boolean
+          cle?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          libelle?: string
+          officine_id?: string
+          type?: string
+          unite?: string | null
+          updated_at?: string
+          valeur?: Json
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "parametres_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profils: {
+        Row: {
+          archived: boolean
+          created_at: string
+          id: string
+          nom_complet: string
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          id: string
+          nom_complet?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          id?: string
+          nom_complet?: string
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sessions_appareils: {
+        Row: {
+          archived: boolean
+          created_at: string
+          derniere_activite: string
+          id: string
+          libelle: string
+          revoquee: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          derniere_activite?: string
+          id?: string
+          libelle: string
+          revoquee?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          derniere_activite?: string
+          id?: string
+          libelle?: string
+          revoquee?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      utilisateurs_officines: {
+        Row: {
+          archived: boolean
+          created_at: string
+          created_by: string | null
+          id: string
+          officine_id: string
+          role: Database["public"]["Enums"]["role_officine"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          officine_id: string
+          role: Database["public"]["Enums"]["role_officine"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          archived?: boolean
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          officine_id?: string
+          role?: Database["public"]["Enums"]["role_officine"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "utilisateurs_officines_officine_id_fkey"
+            columns: ["officine_id"]
+            isOneToOne: false
+            referencedRelation: "officines"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      a_role: {
+        Args: {
+          _officine: string
+          _roles: Database["public"]["Enums"]["role_officine"][]
+        }
+        Returns: boolean
+      }
+      creer_officine: {
+        Args: { _nom: string; _ville: string }
+        Returns: string
+      }
+      mfa_requise: { Args: never; Returns: boolean }
+      role_exige_mfa: {
+        Args: { _r: Database["public"]["Enums"]["role_officine"] }
+        Returns: boolean
+      }
+      user_officines: { Args: never; Returns: string[] }
     }
     Enums: {
-      [_ in never]: never
+      role_officine:
+        | "promoteur"
+        | "pharmacien_titulaire"
+        | "pharmacien_adjoint"
+        | "rmq"
+        | "comptable"
+        | "preparateur"
+        | "caissier"
+        | "magasinier"
+        | "agent_entretien"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +397,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      role_officine: [
+        "promoteur",
+        "pharmacien_titulaire",
+        "pharmacien_adjoint",
+        "rmq",
+        "comptable",
+        "preparateur",
+        "caissier",
+        "magasinier",
+        "agent_entretien",
+      ],
+    },
   },
 } as const
