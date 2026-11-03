@@ -144,11 +144,13 @@ function PageSecurite() {
         <CardHeader>
           <CardTitle>{fr.mfa.titre}</CardTitle>
           <CardDescription>
-            {etat?.actif
+            {etat?.facteurVerifie && etat.aal2
               ? fr.mfa.active
               : enrollement
                 ? fr.mfa.scanner
-                : fr.mfa.obligatoire}
+                : etat?.facteurVerifie
+                  ? fr.mfa.confirmerDesc
+                  : fr.mfa.obligatoire}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
@@ -158,7 +160,7 @@ function PageSecurite() {
             </Alert>
           ) : null}
 
-          {etat?.actif ? (
+          {etat?.facteurVerifie && etat.aal2 ? (
             <Button asChild className="h-11 w-fit">
               <Link to="/">{fr.nav.tableau}</Link>
             </Button>
