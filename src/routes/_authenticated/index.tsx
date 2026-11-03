@@ -55,7 +55,7 @@ function Accueil() {
         supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
       ]);
       return {
-        masquees: (bruts ?? []).length - (rattachements?.length ?? 0),
+        total: (bruts ?? []).length,
         eleve: (niveau.data?.currentLevel ?? "aal1") === "aal2",
       };
     },
