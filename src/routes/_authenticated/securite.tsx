@@ -88,11 +88,12 @@ function PageSecurite() {
   }
 
   async function verifier() {
-    if (!enrollement) return;
+    const factorId = enrollement?.factorId ?? etat?.facteurVerifie;
+    if (!factorId) return;
     setErreur(null);
     setEnCours(true);
     const { error } = await supabase.auth.mfa.challengeAndVerify({
-      factorId: enrollement.factorId,
+      factorId,
       code: code.replace(/\s+/g, ""),
     });
     if (error) {
