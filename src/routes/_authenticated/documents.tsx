@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 import { useOfficine } from "@/lib/officine-context";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,7 +39,7 @@ function Page() {
     },
   });
   const maj = useMutation({
-    mutationFn: async ({ docId, champs }: { docId: string; champs: Record<string, unknown> }) => {
+    mutationFn: async ({ docId, champs }: { docId: string; champs: Database["public"]["Tables"]["documents"]["Update"] }) => {
       const { error } = await supabase.from("documents").update(champs).eq("id", docId);
       if (error) throw error;
     },
