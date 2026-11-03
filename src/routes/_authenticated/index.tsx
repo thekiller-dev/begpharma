@@ -211,7 +211,7 @@ function DialogCreation({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{fr.officine.creer}</DialogTitle>
-          <DialogDescription>{fr.officine.creee}</DialogDescription>
+          <DialogDescription>{fr.officine.creerDesc}</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-2">
           <div className="grid gap-2">
