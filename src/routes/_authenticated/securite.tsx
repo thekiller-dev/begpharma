@@ -66,6 +66,13 @@ function PageSecurite() {
   async function demarrer() {
     setErreur(null);
     setEnCours(true);
+    // On nettoie une éventuelle tentative précédente restée non vérifiée.
+    const { data: existants } = await supabase.auth.mfa.listFactors();
+    for (const f of existants?.all ?? []) {
+      if (f.status !== "verified") {
+        await supabase.auth.mfa.unenroll({ factorId: f.id });
+      }
+    }
     const { data, error } = await supabase.auth.mfa.enroll({
       factorType: "totp",
       friendlyName: "BEGPHARMA",
