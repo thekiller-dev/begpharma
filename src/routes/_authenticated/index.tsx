@@ -84,7 +84,7 @@ function Accueil() {
         <Card>
           <CardHeader>
             <CardTitle>{fr.officine.aucune}</CardTitle>
-            <CardDescription>{fr.mfa.obligatoire}</CardDescription>
+            <CardDescription>{fr.officine.aucuneDesc}</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-2 sm:grid-cols-2">
             <Button onClick={() => setCreationOuverte(true)} className="h-11">

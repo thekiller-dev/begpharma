@@ -45,7 +45,9 @@ export const fr = {
   officine: {
     selecteur: "Officine",
     aucune: "Vous n'êtes rattaché à aucune officine.",
+    aucuneDesc: "Créez votre officine pour commencer, ou demandez à son promoteur de vous y rattacher.",
     creer: "Créer une officine",
+    creerDesc: "Renseignez le nom de votre officine ; vous en deviendrez le promoteur.",
     nom: "Nom de l'officine",
     ville: "Ville",
     creee: "Officine créée. Vous en êtes le promoteur.",
