@@ -92,6 +92,20 @@ function Accueil() {
         <p className="mt-1 text-sm text-muted-foreground">{fr.tableau.socle}</p>
       </div>
 
+      {mfaEtat && mfaEtat.masquees > 0 && !mfaEtat.actif ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{fr.mfa.titre}</CardTitle>
+            <CardDescription>{fr.mfa.obligatoire}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button asChild className="h-11">
+              <Link to="/securite">{fr.nav.securite}</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
       {rattachements.length === 0 ? (
         <Card>
           <CardHeader>
