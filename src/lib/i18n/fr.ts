@@ -77,6 +77,7 @@ export const fr = {
   },
   appareils: {
     titre: "Appareils connectés",
+    sousTitre: "Appareils ayant accédé à votre compte. Déconnectez ceux que vous ne reconnaissez pas.",
     actuel: "Cet appareil",
     revoquer: "Déconnecter",
     toutRevoquer: "Déconnecter tous les autres appareils",

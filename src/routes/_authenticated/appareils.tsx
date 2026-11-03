@@ -104,7 +104,7 @@ function PageAppareils() {
           <h1 className="font-display text-2xl font-bold tracking-tight text-foreground">
             {fr.appareils.titre}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">{fr.mfa.active}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{fr.appareils.sousTitre}</p>
         </div>
         {actifs.length > 1 ? (
           <Button variant="outline" onClick={revoquerAutres}>
