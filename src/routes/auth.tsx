@@ -19,7 +19,7 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   ssr: false,
   validateSearch: (recherche: Record<string, unknown>) => ({
-    verrouille: recherche.verrouille === "1" ? (true as const) : undefined,
+    ...(recherche["verrouille"] === "1" ? { verrouille: true } : {}),
   }),
   head: () => ({
     meta: [

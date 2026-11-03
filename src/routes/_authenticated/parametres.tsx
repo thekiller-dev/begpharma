@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import { useOfficine } from "@/lib/officine-context";
 import { fr } from "@/lib/i18n/fr";
 import { Badge } from "@/components/ui/badge";
@@ -111,7 +112,7 @@ function PageParametres() {
 
   const promoteur = aRole("promoteur");
 
-  async function enregistrer(p: Parametre, nouvelleValeur: unknown) {
+  async function enregistrer(p: Parametre, nouvelleValeur: Json) {
     const { data, error } = await supabase
       .from("parametres")
       .update({ valeur: nouvelleValeur })
