@@ -17,6 +17,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 import { supabase } from "@/integrations/supabase/client";
 import { enregistrerAppareil } from "@/lib/appareil";
 import { OfficineProvider, useOfficine } from "@/lib/officine-context";
@@ -93,23 +95,24 @@ function Coquille({ userId, email }: { userId: string; email: string }) {
     .join("");
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
+    <SidebarProvider>
+    <div className="flex min-h-screen w-full bg-background">
+      <AppSidebar />
+      <div className="flex min-w-0 flex-1 flex-col">
       <header className="sticky top-0 z-20 border-b bg-card/95 backdrop-blur">
-        <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-3 px-4 py-3">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-                +
-              </span>
-              <span className="font-display text-base font-bold tracking-tight text-foreground">
-                {fr.app.nom}
-              </span>
-            </div>
+        <div className="flex w-full items-center justify-between gap-3 px-4 py-3">
+          <div className="flex min-w-0 items-center gap-2">
+            <SidebarTrigger className="size-9" />
+            <div className="min-w-0">
+            <span className="font-display text-base font-bold tracking-tight text-foreground">
+              {fr.app.nom}
+            </span>
             {courante ? (
               <p className="mt-0.5 truncate text-xs text-muted-foreground">
                 {fr.officine.selecteur} : <span className="font-medium">{courante.officine.nom}</span>
               </p>
             ) : null}
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant={enLigne ? "secondary" : "destructive"} className="hidden sm:inline-flex">
@@ -160,9 +163,11 @@ function Coquille({ userId, email }: { userId: string; email: string }) {
           </div>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6">
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">
         <Outlet />
       </main>
+      </div>
     </div>
+    </SidebarProvider>
   );
 }
