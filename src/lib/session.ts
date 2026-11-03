@@ -1,5 +1,5 @@
 import type { QueryClient } from "@tanstack/react-query";
-import type { Router } from "@tanstack/react-router";
+import type { AnyRouter } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { oublierAppareil } from "@/lib/appareil";
 
