@@ -94,7 +94,8 @@ function Accueil() {
         <p className="mt-1 text-sm text-muted-foreground">{fr.tableau.socle}</p>
       </div>
 
-      {mfaEtat && mfaEtat.masquees > 0 && !mfaEtat.eleve ? (
+      const masquees = (mfaEtat?.total ?? 0) - rattachements.length;
+      {mfaEtat && masquees > 0 && !mfaEtat.eleve ? (
         <Card>
           <CardHeader>
             <CardTitle>{fr.mfa.titre}</CardTitle>
