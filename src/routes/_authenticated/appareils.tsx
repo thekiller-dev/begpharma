@@ -46,7 +46,8 @@ const fmtDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyl
 function PageAppareils() {
   const queryClient = useQC();
   const router = useRouter();
-  const { userId } = Route.useRouteContext() as unknown as { userId: string };
+  const { user } = Route.useRouteContext() as unknown as { user: { id: string } };
+  const userId = user.id;
   const [courant, setCourant] = useState<string | null>(null);
 
   useEffect(() => setCourant(appareilCourant()), []);
