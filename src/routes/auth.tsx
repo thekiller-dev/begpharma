@@ -192,6 +192,24 @@ function PageConnexion() {
             >
               {mode === "connexion" ? fr.auth.basculerInscription : fr.auth.basculerConnexion}
             </button>
+            {mode === "connexion" ? (
+              <div className="mt-4 rounded-lg border border-dashed bg-muted/50 p-3 text-sm">
+                <p className="font-medium text-foreground">Compte de démonstration</p>
+                <p className="text-muted-foreground">demo@begpharma.app</p>
+                <p className="text-muted-foreground">Demo-Begpharma-2026</p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="mt-2 h-9 w-full"
+                  onClick={() => {
+                    setEmail("demo@begpharma.app");
+                    setMotDePasse("Demo-Begpharma-2026");
+                  }}
+                >
+                  Remplir les identifiants démo
+                </Button>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
       </div>
