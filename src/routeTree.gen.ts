@@ -15,6 +15,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAppareilsRouteImport } from './routes/_authenticated/appareils'
 import { Route as AuthenticatedJournalRouteImport } from './routes/_authenticated/journal'
 import { Route as AuthenticatedParametresRouteImport } from './routes/_authenticated/parametres'
+import { Route as AuthenticatedSecuriteRouteImport } from './routes/_authenticated/securite'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -45,6 +46,11 @@ const AuthenticatedParametresRoute = AuthenticatedParametresRouteImport.update({
   path: '/parametres',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSecuriteRoute = AuthenticatedSecuriteRouteImport.update({
+  id: '/securite',
+  path: '/securite',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -52,12 +58,14 @@ export interface FileRoutesByFullPath {
   '/appareils': typeof AuthenticatedAppareilsRoute
   '/journal': typeof AuthenticatedJournalRoute
   '/parametres': typeof AuthenticatedParametresRoute
+  '/securite': typeof AuthenticatedSecuriteRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/appareils': typeof AuthenticatedAppareilsRoute
   '/journal': typeof AuthenticatedJournalRoute
   '/parametres': typeof AuthenticatedParametresRoute
+  '/securite': typeof AuthenticatedSecuriteRoute
   '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,15 @@ export interface FileRoutesById {
   '/_authenticated/appareils': typeof AuthenticatedAppareilsRoute
   '/_authenticated/journal': typeof AuthenticatedJournalRoute
   '/_authenticated/parametres': typeof AuthenticatedParametresRoute
+  '/_authenticated/securite': typeof AuthenticatedSecuriteRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/appareils' | '/journal' | '/parametres'
+  fullPaths:
+    '/' | '/auth' | '/appareils' | '/journal' | '/parametres' | '/securite'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/appareils' | '/journal' | '/parametres' | '/'
+  to: '/auth' | '/appareils' | '/journal' | '/parametres' | '/securite' | '/'
   id:
     | '__root__'
     | '/_authenticated'
@@ -81,6 +91,7 @@ export interface FileRouteTypes {
     | '/_authenticated/appareils'
     | '/_authenticated/journal'
     | '/_authenticated/parametres'
+    | '/_authenticated/securite'
     | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
@@ -133,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedParametresRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/securite': {
+      id: '/_authenticated/securite'
+      path: '/securite'
+      fullPath: '/securite'
+      preLoaderRoute: typeof AuthenticatedSecuriteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -140,6 +158,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAppareilsRoute: typeof AuthenticatedAppareilsRoute
   AuthenticatedJournalRoute: typeof AuthenticatedJournalRoute
   AuthenticatedParametresRoute: typeof AuthenticatedParametresRoute
+  AuthenticatedSecuriteRoute: typeof AuthenticatedSecuriteRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
@@ -147,6 +166,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAppareilsRoute: AuthenticatedAppareilsRoute,
   AuthenticatedJournalRoute: AuthenticatedJournalRoute,
   AuthenticatedParametresRoute: AuthenticatedParametresRoute,
+  AuthenticatedSecuriteRoute: AuthenticatedSecuriteRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
